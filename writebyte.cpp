@@ -1,28 +1,34 @@
 "//writing a byte, bit-by-bit to an external device using 1-wirw protocol"
-#include <iostream>
-#include <arduino.h>
+
+#include <Arduino.h>
 
 using namespace std;
 
 void byte_write( byte command, byte pin ){
 	for (int i =0;i<8;i++){
-		if (command>>i & 0x01){
+		if ((command>>i) & 0x01){
 			pinMode(pin, OUTPUT);
 			digitalWrite(pin, LOW);
-			delay microseconds(1);
+			delayMicroseconds(1);
 			pinMode(pin, INPUT);
-			delay microseconds(60);
+			delayMicroseconds(60);
 
-		} else if (!command>>i& 0x01){
+		} else {
 			pinMode(pin, OUTPUT);
 			digitalWrite(pin,LOW);
-			delay microseconds(60);
+			delayMicroseconds(60);
 			pinMode(pin, INPUT);
-			delay microseconds(1);
+			delayMicroseconds(1);
 		}
 	}
 
 }
-int main(){
-	return 0;
-} 
+void setup() {
+    byte data = 0b10101010; // Example byte to send
+    byte pin = 7; // Example pin
+    byte_write(data, pin);
+}
+
+void loop() {
+    // Keep looping if needed
+}
