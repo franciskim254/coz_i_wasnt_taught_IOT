@@ -1,8 +1,9 @@
-"//writing a byte, bit-by-bit to an external device using 1-wirw protocol"
+//writing a byte, bit-by-bit to an external device using 1-wirw protocol
+// this follows a write 1 = LOW (1µs) → HIGH (59µs idle)
+//  ...           write 0 = LOW (60µs) → HIGH (1µs idle)
+
 
 #include <Arduino.h>
-
-using namespace std;
 
 void byte_write( byte command, byte pin ){
 	for (int i =0;i<8;i++){
